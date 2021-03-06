@@ -1,2 +1,2 @@
 # FinalProject_Angular
-Yazılım geliştirici kampı
+Yazılım geliştirici kampı Angular
