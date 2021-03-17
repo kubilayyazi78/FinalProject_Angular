@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
@@ -16,7 +17,8 @@ export class ProductComponent implements OnInit {
   dataLoaded=false;
   filterText='';
 
-  constructor(private productService:ProductService,private activetedRoute:ActivatedRoute,private toastrService:ToastrService) {}
+  constructor(private productService:ProductService,private activetedRoute:ActivatedRoute,
+    private toastrService:ToastrService,private cartService:CartService) {}
 
   ngOnInit(): void {
     this.activetedRoute.params.subscribe(params=>{
@@ -45,6 +47,13 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product:Product){
-  this.toastrService.success("Sepete Eklendi",product.productName);
+    if (product.productId===1){
+      this.toastrService.error("Hata","Stokta mevcut değil");
+    }
+    else {
+      this.toastrService.success("Sepete Eklendi",product.productName);
+      this.cartService.addToCart(product);
+    }
+
   }
 }
